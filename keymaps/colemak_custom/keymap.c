@@ -9,6 +9,15 @@
 enum {
     BASE,
     QWERTY,
+
+    FIRST,
+    SECOND,
+
+    EXTRA,
+    MORE,
+
+    SETTINGS,
+
     F_STUFF,
     MOVING_AROUND,
     ADDITIONAL_SYMBOLS,
@@ -127,14 +136,17 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_CTRL_REP] = ACTION_TAP_DANCE_DOUBLE(QK_REP, KC_LCTL)
 };
 
+#define ___ _______
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [BASE] = LAYOUT(
         KC_GRV,           KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    IT_PLUS,
-        KC_TAB,           KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                               KC_J,    KC_L,    KC_U,    KC_Y,   KC_MINS,  MO(ADDITIONAL_SYMBOLS),
-        TD(TD_LSHT_CAPS),  LSFT_T(KC_A),    KC_R,    KC_S,    KC_T,    KC_D,                    KC_H,    KC_N,    KC_E,    KC_I, RSFT_T(KC_O),    MO(SYMBOLS), // TD(TD_RSHT_CAPS),
-        KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RCTL,
-                        KC_LGUI, LT(F_STUFF, KC_RALT), KC_SPC,                   LT(MOVING_AROUND, KC_ENT),  MT(MOD_LALT, KC_BSPC), MT(MOD_RALT, KC_ESC)
+        OS_LALT,          KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                               KC_J,    KC_L,    KC_U,    KC_Y, KC_BSPC,    OS_RALT,
+        OS_LGUI,  LSFT_T(KC_A),    KC_R,    KC_S,    KC_T,    KC_D,                               KC_H,    KC_N,    KC_E,    KC_I,RSFT_T(KC_O),OS_RGUI,
+        OS_LCTL,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_K,    KC_M,    KC_COMM, KC_DOT,KC_SLSH,   OS_RCTL,
+                        KC_TAB,   MO(FIRST), LT(MORE, KC_SPC),                   LT(SECOND, KC_ENT),  MO(EXTRA), MT(MOD_RALT, KC_ESC)
     ),
     [QWERTY] = LAYOUT(
         _______, _______, _______, _______, _______, _______,                              _______, _______, _______, _______, _______, _______,
@@ -143,6 +155,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                                 KC_N,    KC_M,    _______, _______, _______, _______,
                                             _______, _______, _______,            _______, _______, _______
     ),
+
+
+    [SECOND] = LAYOUT(
+        XXX,  XXX, XXX, XXX, XXX, XXX,                                XXX,     XXX,     XXX,     XXX,  XXX, XXX,
+        ___,  XXX, XXX, XXX, XXX, XXX,                                XXX,     XXX,     XXX,     XXX,  XXX, ___,
+        ___,  XXX, XXX, XXX, XXX, XXX,                            KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, KC_O, ___,
+        ___,  XXX, XXX, XXX, XXX, XXX,                            KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  XXX, ___,
+                                            XXX, XXX, XXX,            XXX,     XXX, XXX
+    ),
+
+
+    [FIRST] = LAYOUT(
+        XXX,  XXX, XXX, XXX, XXX, XXX,                    XXX,      XXX,          XXX, XXX, XXX, XXX,
+        ___,  XXX, XXX, XXX, XXX, KC_GRAVE,          KC_MINUS, KC_EQUAL,          XXX, XXX, XXX, ___,
+        ___,  XXX, XXX, XXX, XXX, KC_DEL,             KC_LBRC,  KC_RBRC,      KC_SLSH, XXX, XXX, ___,
+        ___,  XXX, XXX, XXX, XXX, KC_NUBS,       KC_SEMICOLON, KC_QUOTE, KC_BACKSLASH, XXX, XXX, ___,
+                             XXX, XXX, XXX,           XXX, XXX, XXX
+    ),
+    [MORE] = LAYOUT(
+        XXX,  XXX, XXX, XXX, XXX, XXX,                           XXX, XXX, XXX, XXX, XXX, XXX,
+        ___,  XXX, KC_MUTE, KC_VOLD, KC_VOLU, XXX,          KC_MINUS, XXX, XXX, XXX, XXX, XXX,
+        ___,  XXX, KC_MPRV, KC_MPLY, KC_MNXT, XXX,           KC_LBRC, XXX, XXX, XXX, XXX, XXX,
+        ___,  XXX, XXX, XXX, XXX, KC_NUBS,                       XXX, XXX, XXX, XXX, XXX, KC_CAPS,
+                                            XXX, XXX, XXX,           XXX, XXX, XXX
+    ),
+
+
     // This layer contains mostly function keys: the traditional, the media keys ant alt
     [F_STUFF] = LAYOUT(
         KC_F12,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  TG(QWERTY),
